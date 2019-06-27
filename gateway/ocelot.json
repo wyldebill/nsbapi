@@ -1,0 +1,21 @@
+{
+  "ReRoutes": [
+    // api call
+    {
+      "DownstreamPathTemplate": "/api/values/",  // the outgoing request from ocelot to the api....
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44302
+        }
+      ],
+      "UpstreamPathTemplate": "/api/notreally/",   // the incoming request ...
+      "UpstreamHttpMethod": [ "Get" ]
+    }
+
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:44364/"
+  }
+}
