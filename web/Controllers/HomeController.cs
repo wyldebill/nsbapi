@@ -92,7 +92,7 @@ namespace web.Controllers
             client2.SetBearerToken(tokenResponse.AccessToken);
 
             //var reply = client2.GetAsync("https://localhost:44302/api/identitytest").Result;
-            var reply = client2.GetAsync("https://localhost:44364/api/routevalues").Result;
+            var reply = client2.GetAsync("https://localhost:44364/api/api2values").Result;
 
             if (reply.IsSuccessStatusCode)
             {
@@ -101,6 +101,9 @@ namespace web.Controllers
                 int z = 100;
             }
            
+            // let's try an aggregate request next....
+
+
 
             Console.WriteLine(reply.Content.ReadAsStringAsync());
             

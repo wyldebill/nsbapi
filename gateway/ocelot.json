@@ -1,5 +1,7 @@
 {
   "ReRoutes": [
+
+    // api 1
     // values api call
     {
       "DownstreamPathTemplate": "/api/values/", // the outgoing request from ocelot to the api....
@@ -23,9 +25,27 @@
           "Port": 44302
         }
       ],
-      "UpstreamPathTemplate":
-        "/api/routeidentity/", // the incoming request ...which is gateway specific. it doesn't exist in the controllers
-      "UpstreamHttpMethod": ["Get"],
+      "UpstreamPathTemplate": "/api/routeidentity/", // the incoming request ...which is gateway specific. it doesn't exist in the controllers
+      "UpstreamHttpMethod": [ "Get" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+
+    // api2
+
+    {
+      "DownstreamPathTemplate": "/api/values/", // the outgoing request from ocelot to the api....
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44303
+        }
+      ],
+      "UpstreamPathTemplate": "/api/api2values/", // the incoming request ...which is gateway specific. it doesn't exist in the controllers
+      "UpstreamHttpMethod": [ "Get" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
