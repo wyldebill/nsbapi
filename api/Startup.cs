@@ -57,7 +57,7 @@ namespace WebApplication1
                 app.UseHsts();
             }
 
-            //app.UseAuthentication();  // put authentication into the pipeline based on the setup above.  
+            app.UseAuthentication();  // put authentication into the pipeline based on the setup above.  
             app.UseHttpsRedirection();
             app.UseMvc();
         }

@@ -91,8 +91,8 @@ namespace web.Controllers
             var client2 = new HttpClient();
             client2.SetBearerToken(tokenResponse.AccessToken);
 
-            var reply = client2.GetAsync("https://localhost:44302/api/identitytest").Result;
-
+            //var reply = client2.GetAsync("https://localhost:44302/api/identitytest").Result;
+            var reply = client2.GetAsync("https://localhost:44364/api/routevalues").Result;
 
             if (reply.IsSuccessStatusCode)
             {

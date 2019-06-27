@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -33,6 +34,16 @@ namespace gateway
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+
+
+            services.AddAuthentication("Bearer")   // by default, look for bearer tokens in headers for authentication
+                .AddIdentityServerAuthentication(options =>
+                {
+                    options.Authority = "https://localhost:44301";   // where to go when jwt token is needed
+                    options.RequireHttpsMetadata = false;
+                    options.ApiName = "api1";                       // this identifies our api to the auth server.
+
+                });
             services.AddOcelot();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
@@ -52,6 +63,7 @@ namespace gateway
                 app.UseHsts();
             }
 
+            app.UseAuthentication();
             app.UseOcelot().Wait();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
