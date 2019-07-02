@@ -92,8 +92,7 @@ namespace web.Controllers
             client2.SetBearerToken(tokenResponse.AccessToken);
 
             //var reply = client2.GetAsync("https://localhost:44302/api/identitytest").Result;
-            var reply = client2.GetAsync("https://localhost:44364/api/api2values").Result;
-
+            var reply = client2.GetAsync("https://localhost:44364/api/vals").Result;
             if (reply.IsSuccessStatusCode)
             {
                 var userClaims = reply.Content.ReadAsStringAsync();

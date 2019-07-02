@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using NServiceBus;
 
 namespace api2
 {
@@ -41,6 +42,13 @@ namespace api2
                     options.ApiName = "api1";                       // this identifies our api to the auth server.
 
                 });
+
+            var endpointConfiguration = new EndpointConfiguration("APIEvents.Endpoint");
+            endpointConfiguration.UsePersistence<LearningPersistence>();
+            endpointConfiguration.UseTransport<LearningTransport>();
+
+            var endpointInstance =  Endpoint.Start(endpointConfiguration)
+                .ConfigureAwait(false).GetAwaiter().GetResult();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

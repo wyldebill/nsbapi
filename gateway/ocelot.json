@@ -12,7 +12,7 @@
           "Port": 44302
         }
       ],
-      "UpstreamPathTemplate": "/api/routevalues/", // the incoming request ...which is gateway specific. it doesn't exist in the controllers
+      "UpstreamPathTemplate": "/api/vals/", // the incoming request ...which is gateway specific. it doesn't exist in the controllers
       "UpstreamHttpMethod": [ "Get" ]
     },
     // identity api call
@@ -25,7 +25,7 @@
           "Port": 44302
         }
       ],
-      "UpstreamPathTemplate": "/api/routeidentity/", // the incoming request ...which is gateway specific. it doesn't exist in the controllers
+      "UpstreamPathTemplate": "/api/asdf/", // the incoming request ...which is gateway specific. it doesn't exist in the controllers
       "UpstreamHttpMethod": [ "Get" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",

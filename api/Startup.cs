@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Events;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using NServiceBus;
 
 namespace WebApplication1
 {
@@ -42,6 +44,20 @@ namespace WebApplication1
                     
                 });
 
+            var endpointConfiguration = new EndpointConfiguration("APIEvents.Sender");
+            var transport = endpointConfiguration.UseTransport<LearningTransport>();
+            endpointConfiguration.SendOnly();
+
+            var routing = transport.Routing();
+            routing.RouteToEndpoint(
+                assembly: typeof(ApiCalledEvent).Assembly,
+                destination: "APIEvents.Endpoint");
+            var endpoint = Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
+
+            services.AddSingleton<IMessageSession>(endpoint);
+
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,6 +76,8 @@ namespace WebApplication1
             app.UseAuthentication();  // put authentication into the pipeline based on the setup above.  
             app.UseHttpsRedirection();
             app.UseMvc();
+
+
         }
     }
 }

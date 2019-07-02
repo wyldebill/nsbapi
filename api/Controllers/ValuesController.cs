@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Events;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NServiceBus;
 
 namespace WebApplication1.Controllers
 {
@@ -12,10 +14,21 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        public IMessageSession MessageSession { get; set; }
+       
+
+        public ValuesController(IMessageSession messageSession)
+        {
+            this.MessageSession = messageSession;
+
+        }
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
+            var message = new ApiCalledEvent("Hello an event occured.");
+            MessageSession.Send(message).GetAwaiter().GetResult();
+
             return new string[] { "value1", "value2" };
         }
 
