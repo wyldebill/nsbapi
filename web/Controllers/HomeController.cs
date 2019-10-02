@@ -96,6 +96,7 @@ namespace web.Controllers
             if (reply.IsSuccessStatusCode)
             {
                 var userClaims = reply.Content.ReadAsStringAsync();
+                ViewData["Results"] = "You successfully called an api, using token auth from IdentityServer. And, you did it thru the Ocelot api gateway.  Congrats";
                 // it worked!
                 int z = 100;
             }
